@@ -1,5 +1,5 @@
 /datum/job/captain
-	title = "Captain"
+	title = "Dictator"
 	flag = CAPTAIN
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
@@ -16,7 +16,7 @@
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_COMMAND
 
-	outfit = /datum/outfit/job/captain
+	outfit = /datum/outfit/centcom/dictator
 
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
@@ -64,3 +64,22 @@
 	mask = /obj/item/clothing/mask/gas/sechailer
 	suit = /obj/item/clothing/suit/space/hardsuit/swat/captain
 	suit_store = /obj/item/tank/internals/oxygen
+
+
+
+/datum/outfit/centcom/dictator //CentCom Grand Admiral. The final boss.
+	name = "Dictator"
+
+	uniform = /obj/item/clothing/under/rank/centcom_admiral/grand
+	suit = null
+	shoes = /obj/item/clothing/shoes/combat/swat
+	gloves = /obj/item/clothing/gloves/color/captain/centcom/admiral
+	ears = /obj/item/radio/headset/headset_cent/commander
+	glasses = /obj/item/clothing/glasses/sunglasses
+	mask = /obj/item/clothing/mask/cigarette/cigar/havana
+	head = /obj/item/clothing/head/centhat/admiral/grand
+	neck = /obj/item/clothing/neck/cape/grand
+	r_pocket = /obj/item/lighter
+	back = /obj/item/storage/backpack/satchel/leather
+	id = /obj/item/card/id/gold
+	backpack_contents = list(/obj/item/restraints/handcuffs/cable/zipties=1)

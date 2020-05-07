@@ -274,3 +274,38 @@
 	W.update_label()
 
 	H.ignores_capitalism = TRUE // Yogs -- Lets Centcom guys buy a damned smoke for christ's sake
+
+
+/datum/outfit/centcom/bodyguard //CentCom Rear-Admiral. Low-tier admiral.
+	name = "Bodyguard"
+
+	uniform = /obj/item/clothing/under/rank/centcom_admiral
+	suit = null
+	shoes = /obj/item/clothing/shoes/sneakers/brown
+	gloves = /obj/item/clothing/gloves/color/captain/centcom
+	ears = /obj/item/radio/headset/headset_cent/commander
+	glasses = /obj/item/clothing/glasses/sunglasses
+	mask = /obj/item/clothing/mask/cigarette/cigar/havana
+	head = /obj/item/clothing/head/centhat/admiral
+	neck = null
+	belt = /obj/item/gun/energy/e_gun //The time for negotiations have been reconsidered.
+	r_pocket = /obj/item/lighter
+	l_pocket = /obj/item/melee/classic_baton/telescopic
+	back = /obj/item/storage/backpack/satchel/leather
+	id = /obj/item/card/id/centcom/gold
+	backpack_contents = list(/obj/item/restraints/handcuffs/cable/zipties=1)
+
+/datum/outfit/centcom/rear_admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/centcom/gold/W = H.wear_id
+	W.icon = 'icons/obj/card.dmi'
+	W.icon_state = "centcom_gold"
+	W.access = get_all_accesses()
+	W.access += get_centcom_access("CentCom Commander")
+	W.assignment = "CentCom Rear-Admiral"
+	W.registered_name = H.real_name
+	W.update_label()
+
+	H.ignores_capitalism = TRUE // Yogs -- Lets Centcom guys buy a damned smoke for christ's sake

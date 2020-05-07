@@ -3138,6 +3138,7 @@
 #include "yogstation\code\modules\antagonists\nukeop\clownop.dm"
 #include "yogstation\code\modules\antagonists\nukeop\nukeop.dm"
 #include "yogstation\code\modules\antagonists\nukeop\equipment\nuclearbomb.dm"
+#include "yogstation\code\modules\antagonists\resistance\resistance.dm"
 #include "yogstation\code\modules\antagonists\shadowling\ascendant_shadowling.dm"
 #include "yogstation\code\modules\antagonists\shadowling\shadowling.dm"
 #include "yogstation\code\modules\antagonists\shadowling\shadowling_abilities.dm"

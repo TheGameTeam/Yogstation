@@ -1,5 +1,5 @@
 /datum/job/officer
-	title = "Security Officer"
+	title = "Military Police"
 	flag = OFFICER
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list("Head of Security")
@@ -13,7 +13,7 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 
-	outfit = /datum/outfit/job/security
+	outfit = /datum/outfit/centcom/MP
 
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MECH_SECURITY, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_FORENSICS_LOCKERS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_MECH_SECURITY, ACCESS_MINERAL_STOREROOM) // See /datum/job/officer/get_access()
@@ -180,3 +180,33 @@ GLOBAL_LIST_INIT(available_depts_sec, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICA
 /obj/item/radio/headset/headset_sec/alt/department/service
 	keyslot = new /obj/item/encryptionkey/headset_sec
 	keyslot2 = new /obj/item/encryptionkey/headset_service
+
+
+/datum/outfit/centcom/MP //CentCom Captain. Essentially a station captain.
+	name = "MP"
+	jobtype = /datum/job/officer
+	uniform = /obj/item/clothing/under/rank/centcom_commander
+	suit = /obj/item/clothing/suit/armor/vest/capcarapace/centcom
+	shoes = /obj/item/clothing/shoes/sneakers/brown
+	gloves = /obj/item/clothing/gloves/color/captain/centcom
+	ears = /obj/item/radio/headset/headset_sec/alt
+	glasses = /obj/item/clothing/glasses/sunglasses
+	head = /obj/item/clothing/head/centhat
+
+	back = /obj/item/storage/backpack/satchel/leather
+
+	id = /obj/item/card/id/centcom/silver
+
+	backpack_contents = list(/obj/item/restraints/handcuffs/cable/zipties=1)
+
+	implants = list(/obj/item/implant/mindshield)
+
+	l_pocket = /obj/item/restraints/handcuffs
+	r_pocket = /obj/item/assembly/flash/handheld
+	suit_store = /obj/item/gun/energy/disabler
+	backpack_contents = list(/obj/item/melee/baton/loaded=1)
+
+	backpack = /obj/item/storage/backpack/security
+	satchel = /obj/item/storage/backpack/satchel/sec
+	duffelbag = /obj/item/storage/backpack/duffelbag/sec
+	box = /obj/item/storage/box/security

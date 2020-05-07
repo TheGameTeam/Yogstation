@@ -196,17 +196,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 30
 	include_modes = list(/datum/game_mode/nuclear)
 
-/datum/uplink_item/bundles_TC/contract_kit
-	name = "Contract Kit"
-	desc = "The Syndicate have offered you the chance to become a contractor, take on kidnapping contracts for TC and cash payouts. Upon purchase, \
-			you'll be granted your own contract uplink embedded within the supplied tablet computer. Additionally, you'll be granted \
-			standard contractor gear to help with your mission - comes supplied with the tablet, specialised space suit, chameleon jumpsuit and mask, \
-			agent card, specialised contractor baton, and three randomly selected low cost items. Can include otherwise unobtainable items."
-	item = /obj/item/storage/box/syndicate/contract_kit
-	cost = 20
-	player_minimum = 20
-	exclude_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
-
 /datum/uplink_item/bundles_TC/bundle_A
 	name = "Syndi-kit Tactical"
 	desc = "Syndicate Bundles, also known as Syndi-Kits, are specialized groups of items that arrive in a plain box. \
@@ -988,17 +977,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/grenade/clusterbuster/soap
 	cost = 3
 
-/datum/uplink_item/explosives/syndicate_bomb
-	name = "Syndicate Bomb"
-	desc = "The Syndicate bomb is a fearsome device capable of massive destruction. It has an adjustable timer, \
-			with a minimum of 60 seconds, and can be bolted to the floor with a wrench to prevent \
-			movement. The bomb is bulky and cannot be moved; upon ordering this item, a smaller beacon will be \
-			transported to you that will teleport the actual bomb to it upon activation. Note that this bomb can \
-			be defused, and some crew may attempt to do so. \
-			The bomb core can be pried out and manually detonated with other explosives."
-	item = /obj/item/sbeacondrop/bomb
-	cost = 11
-
 /datum/uplink_item/explosives/syndicate_detonator
 	name = "Syndicate Detonator"
 	desc = "The Syndicate detonator is a companion device to the Syndicate bomb. Simply press the included button \
@@ -1008,14 +986,6 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/syndicatedetonator
 	cost = 3
 	include_modes = list(/datum/game_mode/nuclear, /datum/game_mode/nuclear/clown_ops)
-
-/datum/uplink_item/explosives/syndicate_minibomb
-	name = "Syndicate Minibomb"
-	desc = "The minibomb is a grenade with a five-second fuse. Upon detonation, it will create a small hull breach \
-			in addition to dealing high amounts of damage to nearby personnel."
-	item = /obj/item/grenade/syndieminibomb
-	cost = 6
-	exclude_modes = list(/datum/game_mode/nuclear/clown_ops)
 
 /datum/uplink_item/explosives/tearstache
 	name = "Tearstache Grenade"
