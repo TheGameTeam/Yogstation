@@ -1,45 +1,78 @@
 /*
-	New Virology system please fill this in!
+
+	Advance Disease is a system for Virologist to Engineer their own disease with symptoms that have effects and properties
+	which add onto the overall disease.
+
+	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
+
 */
 
+
+
+
 /*
-	Base Disease
+
+	PROPERTIES
+
  */
 
 /datum/disease/advance
-	name = "Unknown"
+	name = "Unknown" // We will always let our Virologist name our disease.
 	desc = "An engineered disease which can contain a multitude of symptoms."
 	form = "Advance Disease" // Will let med-scanners know that this disease was engineered.
 	agent = "advance microbes"
-	max_stages = 5 //Default 5, not all disease can reach stage 5, where most deadly effects occur
-	spread_text = "Unknown" //How does the disease spread?
-	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey) //Who can we infect?
+	max_stages = 5
+	spread_text = "Unknown"
+	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 
-	disease_flags = CAN_CARRY|CAN_RESIST
-	spread_flags = DISEASE_SPREAD_AIRBORNE | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
-
+	// NEW VARS
 	var/list/properties = list()
 	var/list/symptoms = list() // The symptoms of the disease.
-
+	var/id = ""
 	var/processing = FALSE
 	var/mutable = TRUE //set to FALSE to prevent most in-game methods of altering the disease via virology
 	var/oldres	//To prevent setting new cures unless resistance changes.
 
-
-	//CURING
-	var/cure_progress = 0 //0 to 100, 100 being cured
-	var/base_cure_increase = 0.25 //How much do we cure the disease per tick? Modified by organs
-	var/list/cure_chems = list() //Whats chems help improve cure_progress?
-	var/cure_chem_multiplier = 2 //1 cure chem = base_cure_increase * cure_chem_multiplier ** cure_chems.len
-
-
-	//DNA & Mutation & Straings
-	var/strain
-
-	var/mutation_chance = 0.1 //Prob(mutation_chance) to mutate when spread to new person
-
+	// The order goes from easy to cure to hard to cure.
+	var/static/list/advance_cures = 	list(
+									list(	// level 1
+										/datum/reagent/copper, /datum/reagent/silver, /datum/reagent/iodine, /datum/reagent/iron, /datum/reagent/carbon
+									),
+									list(	// level 2
+										/datum/reagent/potassium, /datum/reagent/consumable/ethanol, /datum/reagent/lithium, /datum/reagent/silicon, /datum/reagent/bromine
+									),
+									list(	// level 3
+										/datum/reagent/consumable/sodiumchloride, /datum/reagent/consumable/sugar, /datum/reagent/consumable/orangejuice, /datum/reagent/consumable/tomatojuice, /datum/reagent/consumable/milk
+									),
+									list(	//level 4
+										/datum/reagent/medicine/spaceacillin, /datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/epinephrine, /datum/reagent/medicine/charcoal
+									),
+									list(	//level 5
+										/datum/reagent/oil, /datum/reagent/medicine/synaptizine, /datum/reagent/medicine/mannitol, /datum/reagent/drug/space_drugs, /datum/reagent/cryptobiolin
+									),
+									list(	// level 6
+										/datum/reagent/phenol, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/oculine, /datum/reagent/medicine/antihol
+									),
+									list(	// level 7
+										/datum/reagent/medicine/leporazine, /datum/reagent/toxin/mindbreaker, /datum/reagent/medicine/corazone
+									),
+									list(	// level 8
+										/datum/reagent/pax, /datum/reagent/drug/happiness, /datum/reagent/medicine/ephedrine
+									),
+									list(	// level 9
+										/datum/reagent/toxin/lipolicide, /datum/reagent/medicine/sal_acid
+									),
+									list(	// level 10
+										/datum/reagent/medicine/haloperidol, /datum/reagent/drug/aranesp, /datum/reagent/medicine/diphenhydramine
+									),
+									list(	//level 11
+										/datum/reagent/medicine/modafinil, /datum/reagent/toxin/anacea
+									)
+								)
 
 /*
+
+	OLD PROCS
 
  */
 
@@ -53,25 +86,20 @@
 	return ..()
 
 /datum/disease/advance/try_infect(var/mob/living/infectee, make_copy = TRUE)
-	//If we have higher transmitability than any other diseases, we replace it. They do not gain immunity to the original disease.
-
+	//see if we are more transmittable than enough diseases to replace them
+	//diseases replaced in this way do not confer immunity
 	var/list/advance_diseases = list()
-
 	for(var/datum/disease/advance/P in infectee.diseases)
 		advance_diseases += P
-
-	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //How many diseases do we need to "overpower"?
-
+	var/replace_num = advance_diseases.len + 1 - DISEASE_LIMIT //amount of diseases that need to be removed to fit this one
 	if(replace_num > 0)
 		sortTim(advance_diseases, /proc/cmp_advdisease_resistance_asc)
-
 		for(var/i in 1 to replace_num)
 			var/datum/disease/advance/competition = advance_diseases[i]
-
 			if(totalTransmittable() > competition.totalResistance())
 				competition.cure(FALSE)
 			else
-				return FALSE //We are not strong enough to bully our way in
+				return FALSE //we are not strong enough to bully our way in
 	infect(infectee, make_copy)
 	return TRUE
 
