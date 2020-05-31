@@ -11,8 +11,6 @@ GLOBAL_VAR(restart_counter)
 //So subsystems globals exist, but are not initialised
 /world/New()
 	enable_debugger() //This does nothing if you aren't trying to debug
-	if(fexists("byond-extools.dll"))
-		call("byond-extools.dll", "maptick_initialize")()
 	log_world("World loaded at [time_stamp()]!")
 
 	SetupExternalRSC()
@@ -258,6 +256,17 @@ GLOBAL_VAR(restart_counter)
 	shutdown_logging() // Past this point, no logging procs can be used, at risk of data loss.
 	..()
 
+/world/Del()
+	// memory leaks bad
+	var/num_deleted = 0
+	for(var/datum/gas_mixture/GM)
+		GM.__gasmixture_unregister()
+		num_deleted++
+	log_world("Deallocated [num_deleted] gas mixtures")
+	if(fexists(EXTOOLS))
+		call(EXTOOLS, "cleanup")()
+	..()
+
 /world/proc/update_status() //yogs -- Mirrored in the Yogs folder in March 2019. Do not edit, swallow, or submerge in acid
 
 	var/list/features = list()
@@ -323,6 +332,7 @@ GLOBAL_VAR(restart_counter)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
+	world.refresh_atmos_grid()
 
 /world/proc/change_fps(new_value = 20)
 	if(new_value <= 0)
@@ -346,3 +356,5 @@ GLOBAL_VAR(restart_counter)
 
 /world/proc/on_tickrate_change()
 	SStimer?.reset_buckets()
+
+/world/proc/refresh_atmos_grid()
